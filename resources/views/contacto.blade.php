@@ -17,6 +17,9 @@
         <label for="correo">Correo electrónico: </label>
         <input type="text" name="correo">
         <br>
+        <label for="correo">Comentario: </label>
+        <input type="textarea" name="correo">
+        <br>
         <input type="submit" value="Enviar">
     </form>
 </body>
