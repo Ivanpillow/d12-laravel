@@ -17,8 +17,15 @@
         <label for="correo">Correo electrónico: </label>
         <input type="text" name="correo">
         <br>
-        <label for="correo">Comentario: </label>
-        <input type="textarea" name="correo">
+        <label for="comentario">Comentario: </label>
+        <textarea name="comentario"  cols="30" rows="3"></textarea>
+        <br>
+        <label for="correo">Ciudad: </label>
+        <select name="ciudad">
+            <option value="gdl">Guadalajara</option>
+            <option value="tonala">Tonalá</option>
+            <option value="zapopan">Zapopan</option>
+        </select>
         <br>
         <input type="submit" value="Enviar">
     </form>
