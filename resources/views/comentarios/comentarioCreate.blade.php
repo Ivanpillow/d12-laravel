@@ -6,10 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/contacto-guarda" method="POST">
+    <form action="{{route('comentario.store')}}" method="POST">
         @csrf 
         {{--Importante en cada formulario. Es otro input que genera una llave--}}
         {{--Comentario--}}
+        <!-- <a href="/comentario">Lista de comentarios</a>-->
+        <a href="{{route('comentario.index')}}">Lista de comentarios</a>
         <h1>Contacto</h1>
         <label for="nombre">Nombre: </label>
         <input type="text" name="nombre">

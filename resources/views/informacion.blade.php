@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/contacto">Contacto</a>
+    <a href="/comentario">Contacto</a>
     <br>
     <h1>Información</h1>
     {{ $tipo }}
