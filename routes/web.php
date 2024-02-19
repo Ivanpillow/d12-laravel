@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\SitioController;
 use App\Models\Comentario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,37 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/info/{tipo}', function ($tipo = null) {
-    // dd($tipo)
+Route::get('/info/{tipo?}', [SitioController::class,'info']);
 
-    $otra = 'algo';
-    
-    return view('informacion', compact('tipo', 'otra'));
-    // return view('informacion', ['tipo' -> $tipo, 'otra' ->])
-    // return view
-});
+// Route::get('/comentario/create', [ComentarioController::class,'create']);
 
-Route::get('/contacto', function () {
-    return view('contacto');
-});
+// Route::post('/comentario-guarda', [ComentarioController::class, 'store']);
 
-Route::post('/contacto-guarda', function (Request $request) {
-    //dd($request->all(), $request->nombre, $request->input('nombre'));
-    //$nombre = $_POST['nombre']
-    //return "si llegue a la ruta";
-
-    //Recibir datos
-
-    //Validar
-
-    //Guardar
-    $comentario = new Comentario();
-    $comentario->nombre = $request->nombre;
-    $comentario->correo = $request->correo;
-    $comentario->comentario = $request->comentario;
-    $comentario->ciudad = $request->ciudad;
-    $comentario->save();
-
-    //Redireccionar
-    return redirect()->back();
-});
+Route::resource('comentario', ComentarioController::class);

@@ -9,7 +9,7 @@
     <a href="/info">Informacion</a>
     <hr>
     <h1>Contacto</h1>
-    <form action="/contacto-guarda" method="POST">
+    <form action="/comentario" method="POST">
         <!-- siempre poner csrf para formularios -->
         @csrf
         <label for="nombre">Nombre</label><br>
