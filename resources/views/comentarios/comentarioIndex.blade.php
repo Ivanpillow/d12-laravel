@@ -28,6 +28,15 @@
                 <td>{{ $comentario->created_at }}</td>
                 <td>
                     <a href="{{ route('comentario.show', $comentario->id) }}"> Detalle </a>
+                    <br>
+                    <a href="{{ route('comentario.edit', $comentario->id) }}"> Editar </a>
+                    <br>
+                    <form action="{{ route('comentario.destroy', $comentario) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" value="Eliminar" style="border-radius: 5px solid;">
+                    </form>
+
                 </td>
             </tr>
             @endforeach
