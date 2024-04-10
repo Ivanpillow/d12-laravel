@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comentario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ComentarioController extends Controller
 {
@@ -24,7 +25,8 @@ class ComentarioController extends Controller
         //     ->where('nombre', 'like', '%2')
         //     ->get();
 
-        $comentarios = Auth::user()->comentarios;
+        //$comentarios = Auth::user()->comentarios; //solo da los comentario del usuario logeado
+        $comentarios = Comentario::all();
 
         return view('comentarios/comentarioIndex', compact('comentarios'));
     }
@@ -70,6 +72,13 @@ class ComentarioController extends Controller
      */
     public function edit(Comentario $comentario)
     {
+        // if (! Gate::allows('editar-comentario', $comentario)) {
+        //     abort(403);
+        // }
+        //misma funcion solo mas corto
+        //Gate::authorize('editar-comentario', $comentario); 
+        $this->authorize('update', $comentario);
+
         return view('comentarios.comentarioEdit', compact('comentario'));
     }
 
@@ -78,6 +87,7 @@ class ComentarioController extends Controller
      */
     public function update(Request $request, Comentario $comentario)
     {
+        $this->authorize('update', $comentario);
         $request->validate([
             'nombre' => 'required|max:255',
             'correo' => ['required', 'email', 'max:255'],
@@ -101,6 +111,7 @@ class ComentarioController extends Controller
      */
     public function destroy(Comentario $comentario)
     {
+        $this->authorize('delete', $comentario);
         $comentario->delete();
         return redirect()->route('comentario.index');
     }
