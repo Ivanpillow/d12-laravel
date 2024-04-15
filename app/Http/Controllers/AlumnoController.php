@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Alumno;
 use App\Models\Materia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderShipped;
 
 class AlumnoController extends Controller
 {
@@ -78,6 +80,8 @@ class AlumnoController extends Controller
         $alumno_id = $alumno->id;
 
         $alumno->materias()->sync($materia_id);
+
+        Mail::to($request->user())->send(new OrderShipped($order));
 
         return redirect()->route('alumno.show', $alumno_id);
     }
