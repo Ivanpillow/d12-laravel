@@ -2,7 +2,7 @@
 
     @include('parciales.form-error')
 
-    <form action="{{ route('comentario.store') }}" method="POST">
+    <form action="{{ route('comentario.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="nombre">Nombre</label><br>
         <input type="text" name="nombre" value="{{ old('nombre') }}">
@@ -27,6 +27,10 @@
             <option value="Zapopan" @selected(old('ciudad') == 'Zapopan')>Zapopan</option>
             <option value="Tonalá" @selected(old('ciudad') == 'Tonalá')>Tonalá</option>
         </select>
+        <br>
+        <hr>
+        <input type="file" name="archivo">
+        <br><br>
         <input type="submit" value="Enviar">
     </form>
 </x-mi-layout>

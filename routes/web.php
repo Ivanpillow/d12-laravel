@@ -30,6 +30,8 @@ Route::resource('comentario', ComentarioController::class);
 Route::resource('alumno', AlumnoController::class);
 Route::get('/alumno/{alumno}/agendar-materia', [AlumnoController::class, 'agendarMateria'])->name('alumno.agendar-materia');
 Route::post('/alumno/{alumno}/relacionar-materia-alumno', [AlumnoController::class, 'relacionarMateriaConAlumno'])->name('alumno.relacionar-materia-alumno');
+Route::get('/comentario/download/{archivo}', [AlumnoController::class, 'download'])
+    ->name('comentario.download');
 
 Route::middleware([
     'auth:sanctum',
