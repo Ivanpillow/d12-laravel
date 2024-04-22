@@ -28,7 +28,7 @@ class ComentarioController extends Controller
         //     ->get();
 
         //$comentarios = Auth::user()->comentarios; //solo da los comentario del usuario logeado
-        $comentarios = Comentario::all();
+        $comentarios = Comentario::with('user')->get();
 
         return view('comentarios/comentarioIndex', compact('comentarios'));
     }
