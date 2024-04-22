@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Archivo;
 use App\Models\Comentario;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -11,9 +13,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ComentarioController extends Controller
 {
+    use RefreshDatabase;
+    
     public function __construct()
     {
-        $this->middleware('auth')->except('index', 'show');
+        $this->middleware('auth');
         // ->only()
     }
 
@@ -48,8 +52,8 @@ class ComentarioController extends Controller
     {
         // Validar
         $request->validate([
-            'nombre' => 'required|max:255',
-            'correo' => ['required', 'email', 'max:255'],
+            // 'nombre' => 'required|max:255',
+            // 'correo' => ['required', 'email', 'max:255'],
             'comentario' =>[ 'required', 'min:10'],
             'ciudad' => 'required',
         ]);
@@ -57,15 +61,15 @@ class ComentarioController extends Controller
         $request->merge(['user_id' => Auth::id()]);
         $comentario = Comentario::create($request->all());
 
-        if( $request->file('archivo')->isValid()) {
-            //para guaradar con su nombre original $request->file('archivo')->storeAs('archivos_comentarios');
+        // if( $request->file('archivo')->isValid()) {
+        //     //para guaradar con su nombre original $request->file('archivo')->storeAs('archivos_comentarios');
 
-            $comentario->archivos()->create([
-                'ubicacion' => $request->archivo->store('archivos_comentarios', 'public'),
-                'nombre_original' => $request->archivo->getClientOriginalName(),
-                'mime' => $request->file('archivo')->getClientMimeType(),
-            ]);
-        }
+        //     $comentario->archivos()->create([
+        //         'ubicacion' => $request->archivo->store('archivos_comentarios', 'public'),
+        //         'nombre_original' => $request->archivo->getClientOriginalName(),
+        //         'mime' => $request->file('archivo')->getClientMimeType(),
+        //     ]);
+        // }
 
         // Redireccionar
         return redirect()->route('comentario.index');
